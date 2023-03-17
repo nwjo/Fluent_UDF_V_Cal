@@ -26,12 +26,12 @@ DEFINE_ON_DEMAND(on_demnad_calc)
             {
                 radius = 0.0085;
                 C_CENTROID(x,c,t);
-                if (sqrt(pow(x[0],2) + pow(x[2],2))>=radius && sqrt(pow(x[0],2) + pow(x[2],2))< radius+0.0001 )
+                if (sqrt(pow(x[0],2) + pow(x[1],2))>=radius && sqrt(pow(x[0],2) + pow(x[1],2))< radius+2.0e-6 )
                 {
-                    //radial_v = sqrt(C_U(c,t)*C_U(c,t)+C_W(c,t)*C_W(c,t));
+                    //radial_v = sqrt(C_U(c,t)*C_U(c,t)+C_V(c,t)*C_V(c,t));
                     //tangential_v = atan2(C_W(c,t)/C_U(c,t));
 
-                    sum_v += tangential_v*C_VOLUME(c,t);
+                    sum_v += sqrt(C_U(c,t)*C_U(c,t)+C_V(c,t)*C_V(c,t))*C_VOLUME(c,t);
                     sum_vol += C_VOLUME(c,t);
                 }
                 else
