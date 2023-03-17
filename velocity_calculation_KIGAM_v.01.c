@@ -14,7 +14,7 @@ DEFINE_ON_DEMAND(on_demnad_calc)
     real x[ND_ND];
     real radius;
     //real radial_v;
-    real tangetial_v;
+    //real tangetial_v;
     cell_t c;
     d = Get_Domain(1);
 
@@ -29,7 +29,7 @@ DEFINE_ON_DEMAND(on_demnad_calc)
                 if (sqrt(pow(x[0],2) + pow(x[2],2))>=radius && sqrt(pow(x[0],2) + pow(x[2],2))< radius+0.0001 )
                 {
                     //radial_v = sqrt(C_U(c,t)*C_U(c,t)+C_W(c,t)*C_W(c,t));
-                    tangential_v = atan2(C_W(c,t)/C_U(c,t));
+                    //tangential_v = atan2(C_W(c,t)/C_U(c,t));
 
                     sum_v += tangential_v*C_VOLUME(c,t);
                     sum_vol += C_VOLUME(c,t);
