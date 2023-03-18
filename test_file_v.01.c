@@ -7,16 +7,17 @@ DEFINE_ON_DEMAND(on_demnad_calc)
     Domain *d;
     Thread *t;
 
-    /* Integrate Velocity Magnitude */
+    /* Integrate Tangential Velocity */
     real sum_v;
     real sum_vol;
     real sum_ave_v[ND_ND];
     real x[ND_ND];
     real radius;
+    real radial_coordinate;
+    real theta_speed;
+    real tangetial_v;
     int i;
-    //real theta=atan(x[1]/x[0]);
-    //real radial_v;
-    //real tangetial_v;
+
     cell_t c;
     d = Get_Domain(1);
 
@@ -36,10 +37,11 @@ DEFINE_ON_DEMAND(on_demnad_calc)
                     C_CENTROID(x,c,t);
                     if (sqrt(pow(x[0],2) + pow(x[1],2))>=radius && sqrt(pow(x[0],2) + pow(x[1],2))< radius+2.0e-6 )
                     {
-                        //radial_v = sqrt(C_U(c,t)*C_U(c,t)+C_V(c,t)*C_V(c,t));
-                        //tangential_v = atan2(C_W(c,t)/C_U(c,t));
+                        radial_coordinate = sqrt(pow(x[0],2) + pow(x[1],2));
+                        theta_speed = (x[0]*C_V(c,t)-x[1]*C_U(c,t))/(pow(x[0],2)+pow(x[1],2));
+                        tangential_v = radial_coordinate*theta_speed;
 
-                        sum_v += sqrt(C_U(c,t)*C_U(c,t)+C_V(c,t)*C_V(c,t))*C_VOLUME(c,t);
+                        sum_v += tangential_v*C_VOLUME(c,t);
                         sum_vol += C_VOLUME(c,t);
                     }
                     else
