@@ -10,7 +10,7 @@ DEFINE_ON_DEMAND(on_demnad_calc)
     /* Integrate Tangential Velocity */
     real sum_v;
     real sum_vol;
-    real sum_ave_v[3];
+    real sum_ave_v[ND_ND];
     real x[ND_ND];
     real radius;
     real radial_coordinate;
@@ -27,11 +27,11 @@ DEFINE_ON_DEMAND(on_demnad_calc)
             if (FLUID_THREAD_P(t))
             {
 
-                for(i = 0; i<4; i++) 
+                for(i = 1; i<5; i++) 
                 {
 
                 radius = 0.0085;
-                radius += i*0.001;
+                radius += i*0.001+radius;
 
                 begin_c_loop_int(c,t)
                 {
