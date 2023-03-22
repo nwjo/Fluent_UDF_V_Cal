@@ -26,7 +26,7 @@ DEFINE_ON_DEMAND(on_demand_calc)
     {
         if (FLUID_THREAD_P(t))
         {
-            begin_c_loop(c,t)
+            begin_c_loop_int(c,t)
             {
                 C_CENTROID(x,c,t);
                 if (sqrt(pow(x[0],2) + pow(x[1],2))>=radius && sqrt(pow(x[0],2) + pow(x[1],2))< radius + delta_r)
@@ -40,15 +40,15 @@ DEFINE_ON_DEMAND(on_demand_calc)
                     sum_vol += 0;
                 }
             }
-            end_c_loop(c,t)
-            sum_ave_v = sum_v/sum_vol;
+            end_c_loop_int(c,t)
+            
         }
-
-        #if RP_NODE
-        sum_ave_v = PRF_GRSUM1(sum_ave_v);
-        #endif
     }
-
+    #if RP_NODE
+        PRF_GRSUM2(sum_v, sum_vol);
+        sum_ave_v = sum_v/sum_vol;
+    #endif
+    
     #if PARALLEL
     if(I_AM_NODE_ZERO_P)
     #endif
